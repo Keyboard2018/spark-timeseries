@@ -17,7 +17,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cloudera.sparkts</groupId>
   <artifactId>sparkts</artifactId>
-  <version>0.4.0-SNAPSHOT</version>
+  <version>0.5.0-OD</version>
   <packaging>jar</packaging>
   <name>Time Series for Spark</name>
   <description>A library for analyzing large-scale time series data.</description>
@@ -54,39 +54,19 @@
     <java.version>1.8</java.version>
     <scala.minor.version>2.11</scala.minor.version>
     <scala.complete.version>2.11.8</scala.complete.version>
-    <spark.version>2.0.0</spark.version>
-    <breeze.version>0.12</breeze.version>
+    <spark.version>2.3.1</spark.version>
+    <breeze.version>0.13.2</breeze.version>
   </properties>
 
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
     <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>nexus</id>
+      <url>http://nexus.intranet.onelogic.de:18081/repository/maven-releases</url>
     </repository>
-    <site>
-      <id>sparkts.website</id>
-      <name>Spark TS documentation</name>
-      <url>http://cloudera.github.io/spark-timeseries/</url>
-    </site>
   </distributionManagement>
   
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
-        <extensions>true</extensions>
-        <configuration>
-           <serverId>ossrh</serverId>
-           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-           <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
@@ -284,30 +264,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.4</version>
-        <inherited>false</inherited>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-markdown</artifactId>
-            <version>1.6</version>
-          </dependency>
-          <dependency>
-            <groupId>lt.velykis.maven.skins</groupId>
-            <artifactId>reflow-velocity-tools</artifactId>
-            <version>1.1.1</version>
-          </dependency>
-          <!-- Reflow skin requires Velocity >= 1.7  -->
-          <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5.3</version>
         <dependencies>
@@ -339,29 +295,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <keyname>Sandy Ryza &lt;sandyryza@gmail.com&gt;</keyname>
-          <executable>gpg2</executable>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
-      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-plugin</artifactId>
@@ -475,15 +409,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>scala-2.10</id>
-      <properties>
-        <scala.minor.version>2.10</scala.minor.version>
-        <scala.complete.version>2.10.6</scala.complete.version>
-      </properties>
-    </profile>
-  </profiles>
 
 </project>
